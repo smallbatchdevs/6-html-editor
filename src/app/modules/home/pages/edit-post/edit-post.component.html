@@ -1,0 +1,70 @@
+<div class="error" *ngIf="errorMessage">
+  {{errorMessage}}
+</div>
+<div class="centered" *ngIf="form$ | async as form">
+  <form class="half-width" [formGroup]="form">
+    <div class="centerText">
+      <h1>Header:</h1>
+      <input
+        class="half-width"
+        [ngModel]="form.value.header"
+        type="text"
+        formControlName="header"
+      />
+    </div>
+    <div class="centerText">
+      <h3>Sub Header:</h3>
+      <input
+        class="half-width"
+        [ngModel]="form.value.subheader"
+        type="text"
+        formControlName="subheader"
+      />
+    </div>
+    <div class="centerText">
+      <div>Preview Image Source:</div>
+      <input
+        class="half-width"
+        [ngModel]="form.value.previewImageSource"
+        type="text"
+        formControlName="previewImageSource"
+      />
+    </div>
+    <div class="centerText">
+      <div>Pretty Url:</div>
+      <input
+        class="half-width"
+        [ngModel]="form.value.prettyUrl"
+        type="text"
+        formControlName="prettyUrl"
+      />
+    </div>
+    <editor
+      class="centered"
+      formControlName="content"
+      [init]="{
+         base_url: '/tinymce',
+         suffix: '.min',
+         height: 500,
+         menubar: false,
+         plugins: [
+           'advlist autolink lists link image charmap print preview anchor codesample',
+           'searchreplace visualblocks code fullscreen image imagetools',
+           'insertdatetime media table paste code help wordcount'
+         ],
+        codesample_languages: [
+          { text: 'TypeScript', value: 'typescript' },
+          { text: 'JavaScript', value: 'javascript' },
+          { text: 'HTML/XML', value: 'markup' },
+          { text: 'CSS', value: 'css' }
+        ],
+         toolbar:
+           'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image codesample'
+       }"
+    ></editor>
+    <div>
+      <div class="saveButton" (click)="onSubmit(form.value)">Save</div>
+      <div class="homeButton" routerLink="/">Home</div>
+    </div>
+  </form>
+</div>
